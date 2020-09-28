@@ -11,11 +11,18 @@
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.9",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/redux-logger": "^3.0.8",
+    "@types/unsplash-js": "^6.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
+    "redux-promise-middleware": "^6.1.2",
+    "redux-thunk": "^2.3.0",
     "typescript": "^3.9.7",
     "unsplash-js": "^6.3.0"
   },
@@ -23,7 +30,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,5 +47,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "gh-pages": "^3.1.0"
   }
 }
