@@ -1,6 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+
+// ES Modules syntax
+import Unsplash, { toJson } from "unsplash-js";
+
+const unsplash = new Unsplash({
+  accessKey: "V9Y8-TqOBNxjEQp_XzDW3WHSowfFp300MywZwSWrGik",
+});
 
 function App() {
   return (
