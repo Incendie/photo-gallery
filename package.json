@@ -26,6 +26,11 @@
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build"
   },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
