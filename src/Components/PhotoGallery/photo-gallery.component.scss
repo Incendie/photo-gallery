@@ -1,0 +1,5 @@
+.photo-grid {
+  display: grid;
+  grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
+  // grid-gap: 80px;
+}
