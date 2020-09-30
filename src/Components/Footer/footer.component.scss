@@ -1,0 +1,13 @@
+footer {
+  height: 80px;
+  background: black;
+  color: white;
+
+  a {
+    color: orange;
+
+    &:hover {
+      font-weight: bold;
+    }
+  }
+}
