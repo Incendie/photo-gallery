@@ -4,19 +4,17 @@ import { UnsplashPhoto } from './photo-gallery.interfaces';
 
 import './photo-gallery.component.scss';
 
-export enum FETCH_RANDOM_PHOTO {
-  success = 'FETCH_RANDOM_PHOTO_SUCCESS',
-  pending = 'FETCH_RANDOM_PHOTO_PENDING',
-  fail = 'FETCH_RANDOM_PHOTO_FAILURE'
-}
+import { PhotoDetails } from '../PhotoDetails/photo-details.component';
 
 export const PhotoGallery = () => {
   const unsplash = new Unsplash({
     accessKey: 'V9Y8-TqOBNxjEQp_XzDW3WHSowfFp300MywZwSWrGik'
   });
-  const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(9);
+  const [page, setPage] = useState<number>(1);
+  const [perPage, setPerPage] = useState<number>(9);
   const [photos, setPhotos] = useState<UnsplashPhoto[]>([]);
+  const [showEnlarged, setShowEnlarged] = useState<boolean>(false);
+  const [enlargePhoto, setEnlargePhoto] = useState<string>('');
 
   useEffect(() => {
     const fetchPhotos = () => {
@@ -36,20 +34,31 @@ export const PhotoGallery = () => {
     }
   }, [photos]);
 
+  const handleClick = (e: React.MouseEvent<HTMLImageElement>) => {
+    const element = e.target as HTMLImageElement;
+    console.log(e.target);
+    setShowEnlarged(true);
+    setEnlargePhoto(element.id);
+    console.log(element.id);
+  };
+
   return (
     <main className="wrapper">
       <ul className="photo-grid">
         {photos.map((photo: UnsplashPhoto) => {
           return (
-            <li>
+            <li key={photo.id}>
               <img
                 src={photo.urls.thumb}
                 alt={photo.alt_description || 'Unsplash photo'}
+                id={photo.id}
+                onClick={handleClick}
               />
             </li>
           );
         })}
       </ul>
+      {showEnlarged && <PhotoDetails photoId={enlargePhoto} />}
     </main>
   );
 };
