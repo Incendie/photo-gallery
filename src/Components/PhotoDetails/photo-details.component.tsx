@@ -4,11 +4,15 @@ import { Capitalize } from '../Utils/Capitalize';
 import { format } from 'date-fns';
 
 import { UnsplashPhotoDetails } from './photo-details.interfaces';
+import { UnsplashPhoto } from '../PhotoGallery/photo-gallery.interfaces';
 import './photo-details.component.scss';
 
 interface PhotoDetailsProps {
   photoId: string;
   setShowEnlarged: any;
+  photos: UnsplashPhoto[];
+  position: number;
+  setPosition: any;
 }
 
 interface PhotoDetail {
@@ -18,7 +22,10 @@ interface PhotoDetail {
 
 export const PhotoDetails = ({
   photoId,
-  setShowEnlarged
+  setShowEnlarged,
+  photos,
+  position,
+  setPosition
 }: PhotoDetailsProps) => {
   const unsplash = new Unsplash({
     accessKey: 'V9Y8-TqOBNxjEQp_XzDW3WHSowfFp300MywZwSWrGik'
@@ -29,7 +36,7 @@ export const PhotoDetails = ({
   // Fetch and parse the photo's details
   useEffect(() => {
     unsplash.photos
-      .getPhoto(photoId)
+      .getPhoto(photos[position].id)
       .then(toJson)
       .then((json: any) => {
         const details = [
@@ -59,18 +66,59 @@ export const PhotoDetails = ({
         setDisplayDetails(details);
       })
       .catch((err) => console.error('Error fetching photo:', err));
-  }, [photoId]);
+  }, [position]);
 
   // Handler for the 'X' button to close the modal
   const handleClick = () => {
     setShowEnlarged(false);
   };
 
+  const handleNav = (e: any) => {
+    if (e.target.className.includes('prev')) {
+      setPosition(decPos());
+    } else if (e.target.className.includes('next')) {
+      setPosition(incPos());
+    }
+  };
+
+  const decPos = () => {
+    if (position > 0) {
+      return position - 1;
+    } else {
+      return photos.length - 1;
+    }
+  };
+
+  const incPos = () => {
+    if (position < photos.length) {
+      return position + 1;
+    } else {
+      return 0;
+    }
+  };
+
   return (
     <div>
       {photoDetails && (
         <div className="modal">
-          {console.log({ photoDetails, photoId })}
+          <div className="modal-prev" onClick={handleNav}>
+            <div className="modal-prev-img">
+              <img
+                src={photos[decPos()].urls.thumb}
+                alt={photos[decPos()].alt_description || 'Unsplash Photo'}
+              />
+            </div>
+            <div className="modal-prev-icon">{`<`}</div>
+          </div>
+          <div className="modal-next" onClick={handleNav}>
+            <div className="modal-next-img">
+              <img
+                src={photos[incPos()].urls.thumb}
+                alt={photos[incPos()].alt_description || 'Unsplash Photo'}
+              />
+            </div>
+            <div className="modal-next-icon">{`>`}</div>
+          </div>
           <div className="details wrapper">
             <div className="details-close" onClick={handleClick}>
               X

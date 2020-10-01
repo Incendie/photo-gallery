@@ -13,6 +13,7 @@ export const PhotoGallery = () => {
   const [page, setPage] = useState<number>(1);
   const [perPage, setPerPage] = useState<number>(9);
   const [photos, setPhotos] = useState<UnsplashPhoto[]>([]);
+  const [position, setPosition] = useState<number>(0);
   const [showEnlarged, setShowEnlarged] = useState<boolean>(false);
   const [enlargePhoto, setEnlargePhoto] = useState<string>('');
 
@@ -41,9 +42,14 @@ export const PhotoGallery = () => {
     const element = e.target as HTMLElement;
     const imgElement = element.nextSibling as HTMLImageElement;
 
+    console.log(imgElement);
     if (imgElement.nodeName === 'IMG') {
       setShowEnlarged(true);
       setEnlargePhoto(imgElement.id);
+      if (imgElement.dataset && imgElement.dataset.position) {
+        const position = parseInt(imgElement.dataset.position, 10);
+        setPosition(position);
+      }
     }
   };
 
@@ -55,7 +61,7 @@ export const PhotoGallery = () => {
   return (
     <main className="wrapper">
       <ul className="photo-grid">
-        {photos.map((photo: UnsplashPhoto) => {
+        {photos.map((photo: UnsplashPhoto, index: number) => {
           return (
             <li key={photo.id}>
               <div className="overlay" onClick={handleClick}>
@@ -65,6 +71,7 @@ export const PhotoGallery = () => {
                 src={photo.urls.thumb}
                 alt={photo.alt_description || 'Unsplash photo'}
                 id={photo.id}
+                data-position={index}
               />
             </li>
           );
@@ -74,6 +81,9 @@ export const PhotoGallery = () => {
         <PhotoDetails
           photoId={enlargePhoto}
           setShowEnlarged={setShowEnlarged}
+          photos={photos}
+          position={position}
+          setPosition={setPosition}
         />
       )}
       <button onClick={handleLoad}>Load More</button>
