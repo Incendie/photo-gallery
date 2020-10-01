@@ -12,6 +12,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
     "@types/unsplash-js": "^6.0.2",
+    "date-fns": "^2.16.1",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -21,11 +22,12 @@
     "unsplash-js": "^6.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run env && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "env": "bash .env"
   },
   "babel": {
     "presets": [

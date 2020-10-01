@@ -1,5 +1,52 @@
-.photo-grid {
-  display: grid;
-  grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
-  // grid-gap: 80px;
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
+    gap: 20px;
+    justify-content: center;
+    margin: 100px auto;
+
+    li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+
+      .overlay {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+      }
+
+      &:hover .overlay {
+        display: block;
+      }
+    }
+  }
+
+  .overlay {
+    color: white;
+    padding: 15px;
+  }
+
+  button {
+    padding: 20px;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+
+    &:hover {
+      color: white;
+      background: darken(orange, 3%);
+    }
+  }
 }

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Unsplash, { toJson } from 'unsplash-js';
 import { UnsplashPhoto } from './photo-gallery.interfaces';
+import { Capitalize } from '../Utils/Capitalize';
 
 import './photo-gallery.component.scss';
-
 import { PhotoDetails } from '../PhotoDetails/photo-details.component';
 
 export const PhotoGallery = () => {
@@ -16,30 +16,40 @@ export const PhotoGallery = () => {
   const [showEnlarged, setShowEnlarged] = useState<boolean>(false);
   const [enlargePhoto, setEnlargePhoto] = useState<string>('');
 
+  // Fetch a new batch of photos every time the page increases
   useEffect(() => {
     const fetchPhotos = () => {
       unsplash.photos
         .listPhotos(page, perPage, 'latest')
         .then(toJson)
         .then((json) => {
-          setPhotos(json);
+          if (!Object.keys(photos).length) {
+            setPhotos(json);
+          } else {
+            const displayPhotos = [...photos];
+            displayPhotos.push(...json);
+            setPhotos(displayPhotos);
+          }
         })
-        .catch((err) => {
-          console.error('Error fetching photos:', err);
-        });
+        .catch((err) => console.error('Error fetching photos:', err));
     };
+    fetchPhotos();
+  }, [page]);
 
-    if (!Object.keys(photos).length) {
-      fetchPhotos();
+  // Handler for when user clicks a photo
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    const element = e.target as HTMLElement;
+    const imgElement = element.nextSibling as HTMLImageElement;
+
+    if (imgElement.nodeName === 'IMG') {
+      setShowEnlarged(true);
+      setEnlargePhoto(imgElement.id);
     }
-  }, [photos]);
+  };
 
-  const handleClick = (e: React.MouseEvent<HTMLImageElement>) => {
-    const element = e.target as HTMLImageElement;
-    console.log(e.target);
-    setShowEnlarged(true);
-    setEnlargePhoto(element.id);
-    console.log(element.id);
+  // Handler to kick start searching for next page of photos for Infinite Scroll
+  const handleLoad = () => {
+    setPage(page + 1);
   };
 
   return (
@@ -48,17 +58,25 @@ export const PhotoGallery = () => {
         {photos.map((photo: UnsplashPhoto) => {
           return (
             <li key={photo.id}>
+              <div className="overlay" onClick={handleClick}>
+                {Capitalize(photo.alt_description)}
+              </div>
               <img
                 src={photo.urls.thumb}
                 alt={photo.alt_description || 'Unsplash photo'}
                 id={photo.id}
-                onClick={handleClick}
               />
             </li>
           );
         })}
       </ul>
-      {showEnlarged && <PhotoDetails photoId={enlargePhoto} />}
+      {showEnlarged && (
+        <PhotoDetails
+          photoId={enlargePhoto}
+          setShowEnlarged={setShowEnlarged}
+        />
+      )}
+      <button onClick={handleLoad}>Load More</button>
     </main>
   );
 };

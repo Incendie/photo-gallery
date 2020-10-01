@@ -8,11 +8,34 @@ ul {
 
 a {
   text-decoration: none;
-  color: inherit;
+  color: orange;
+
+  &:hover {
+    color: lighten(orange, 20%);
+  }
 }
 
 img {
-  max-width: 100%;
+  max-height: inherit;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  margin: 5px 0;
+}
+
+button {
+  border: none;
+  background: orange;
+}
+
+.App {
+  display: grid;
+  grid-template-rows: 80px auto 80px;
+  height: 100vh;
 }
 
 .wrapper {

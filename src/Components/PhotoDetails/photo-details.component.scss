@@ -1,21 +1,45 @@
 .details {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  // justify-content: space-between;
+  position: relative;
+
+  &-photo,
+  &-info {
+    padding: 0;
+  }
 
   &-photo {
     display: flex;
-    justify-content: space-between;
-    max-height: 100vh;
-    padding: 50px;
+    justify-content: space-around;
+    max-height: 60vh;
+    justify-self: flex-end;
+    flex-grow: 1;
+    padding-right: 10px;
   }
 
   &-info {
     color: white;
+    justify-self: flex-start;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    font-size: 1.2rem;
+
+    &-Caption {
+      font-size: 1.6rem;
+      align-self: center;
+      color: lighten(orange, 15%);
+      margin: 20px;
+    }
   }
 
-  img {
-    max-height: 100vh;
-    max-width: 100%;
+  &-close {
+    font-size: 5rem;
+    color: white;
+    position: absolute;
+    right: -100px;
+    cursor: pointer;
   }
 }

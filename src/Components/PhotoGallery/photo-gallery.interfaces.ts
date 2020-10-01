@@ -10,10 +10,10 @@ export interface UnsplashPhoto {
   description: string | null;
   alt_description: string | null;
   urls: UnsplashUrls;
-  links: object;
-  categories: object;
+  links?: object;
+  categories?: object;
   likes: number;
-  liked_by_user: boolean;
+  liked_by_user?: boolean;
   current_user_collections?: object;
   sponsorship?: object;
   user?: object;
