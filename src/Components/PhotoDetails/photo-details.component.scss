@@ -1,0 +1,21 @@
+.details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  &-photo {
+    display: flex;
+    justify-content: space-between;
+    max-height: 100vh;
+    padding: 50px;
+  }
+
+  &-info {
+    color: white;
+  }
+
+  img {
+    max-height: 100vh;
+    max-width: 100%;
+  }
+}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Unsplash, { toJson } from 'unsplash-js';
 
 import { UnsplashPhotoDetails } from './photo-details.interfaces';
+import './photo-details.component.scss';
 
 interface PhotoDetailsProps {
   photoId: string;
@@ -23,18 +24,27 @@ export const PhotoDetails = ({ photoId }: PhotoDetailsProps) => {
   }, [photoId]);
 
   return (
-    <div className="wrapper">
+    <div>
       {photoDetails && (
         <div className="modal">
-          <>
-            <div className="details-photo">
+          <div className="details wrapper">
+            <div className="details-photo ">
               <img
                 src={photoDetails.urls.full}
-                alt={photoDetails.alt_description}
+                alt={photoDetails.alt_description || 'Unsplash photo'}
               />
             </div>
-            <div className="details-info"></div>
-          </>
+            <div className="details-info">
+              <ul>
+                {Object.keys(photoDetails).map((detail: string) => {
+                  console.log(detail);
+                  if (typeof photoDetails[detail] === 'string') {
+                    return <li>{photoDetails[detail]}</li>;
+                  }
+                })}
+              </ul>
+            </div>
+          </div>
         </div>
       )}
     </div>

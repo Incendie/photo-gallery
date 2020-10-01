@@ -11,8 +11,24 @@ a {
   color: inherit;
 }
 
+img {
+  max-width: 100%;
+}
+
 .wrapper {
   max-width: 1420px;
   margin: 0 auto;
   padding: 0 10px;
+}
+
+.modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 50px 0;
 }
