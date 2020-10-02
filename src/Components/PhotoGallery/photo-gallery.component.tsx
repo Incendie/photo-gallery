@@ -12,7 +12,7 @@ export const PhotoGallery = () => {
     accessKey: 'V9Y8-TqOBNxjEQp_XzDW3WHSowfFp300MywZwSWrGik'
   });
   const [page, setPage] = useState<number>(1);
-  const [perPage, setPerPage] = useState<number>(9);
+  const [perPage] = useState<number>(9);
   const [photos, setPhotos] = useState<UnsplashPhoto[]>([]);
   const [position, setPosition] = useState<number>(0);
   const [showEnlarged, setShowEnlarged] = useState<boolean>(false);

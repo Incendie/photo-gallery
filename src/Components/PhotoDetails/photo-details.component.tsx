@@ -170,6 +170,7 @@ export const PhotoDetails = ({
                         </li>
                       );
                     }
+                    return null;
                   })}
                 </ul>
               </>
