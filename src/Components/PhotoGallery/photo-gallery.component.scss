@@ -10,6 +10,15 @@ main {
     justify-content: center;
     margin: 100px auto;
 
+    @media only screen and (max-device-width: 768px) {
+      grid-template-columns: 50% 50%;
+    }
+
+    @media only screen and (max-device-width: 480px) {
+      display: flex;
+      flex-direction: column;
+    }
+
     li {
       display: flex;
       justify-content: center;

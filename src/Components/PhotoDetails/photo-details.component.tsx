@@ -39,7 +39,6 @@ export const PhotoDetails = ({
       .getPhoto(photos[position].id)
       .then(toJson)
       .then((json: any) => {
-        console.log(json);
         const details = [
           { name: 'Caption', value: Capitalize(json.alt_description) },
           {
@@ -135,21 +134,26 @@ export const PhotoDetails = ({
                 if (detail.name !== 'EXIF' && detail.value) {
                   return (
                     <li key={index} className={`details-info-${detail.name}`}>
-                      {detail.name !== 'Caption' && `${detail.name} -`}{' '}
-                      {detail.name === 'Portfolio Link' ||
-                      detail.name === 'Twitter' ? (
-                        <a
-                          href={
-                            detail.name === 'Twitter'
-                              ? `https://twitter.com/${detail.value}`
-                              : detail.value
-                          }
-                        >
-                          {detail.value}
-                        </a>
-                      ) : (
-                        detail.value
-                      )}
+                      <span>
+                        {detail.name !== 'Caption' && `${detail.name}`}
+                      </span>
+                      <span>{` - `}</span>
+                      <span>
+                        {detail.name === 'Portfolio Link' ||
+                        detail.name === 'Twitter' ? (
+                          <a
+                            href={
+                              detail.name === 'Twitter'
+                                ? `https://twitter.com/${detail.value}`
+                                : detail.value
+                            }
+                          >
+                            {detail.value}
+                          </a>
+                        ) : (
+                          detail.value
+                        )}
+                      </span>
                     </li>
                   );
                 }
