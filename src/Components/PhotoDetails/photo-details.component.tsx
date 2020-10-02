@@ -3,22 +3,14 @@ import Unsplash, { toJson } from 'unsplash-js';
 import { Capitalize } from '../Utils/Capitalize';
 import { format } from 'date-fns';
 
-import { UnsplashPhotoDetails } from './photo-details.interfaces';
-import { UnsplashPhoto } from '../PhotoGallery/photo-gallery.interfaces';
+import {
+  UnsplashPhotoDetails,
+  PhotoDetailsProps,
+  PhotoDetailObj
+} from './photo-details';
+import { UnsplashPhoto } from '../PhotoGallery/photo-gallery';
 import { Loading } from '../Utils/Loading/loading.component';
 import './photo-details.component.scss';
-
-interface PhotoDetailsProps {
-  setShowEnlarged: any;
-  photos: UnsplashPhoto[];
-  position: number;
-  setPosition: any;
-}
-
-interface PhotoDetail {
-  name: string;
-  value: string;
-}
 
 export const PhotoDetails = ({
   setShowEnlarged,
@@ -30,7 +22,7 @@ export const PhotoDetails = ({
     accessKey: 'V9Y8-TqOBNxjEQp_XzDW3WHSowfFp300MywZwSWrGik'
   });
   const [photoDetails, setPhotoDetails] = useState<UnsplashPhotoDetails>();
-  const [displayDetails, setDisplayDetails] = useState<PhotoDetail[]>([]);
+  const [displayDetails, setDisplayDetails] = useState<PhotoDetailObj[]>([]);
   const [showLoading, setShowLoading] = useState<boolean>(true);
 
   // Fetch and parse the photo's details
@@ -77,6 +69,7 @@ export const PhotoDetails = ({
     setShowEnlarged(false);
   };
 
+  // Handler for the carousel arrows
   const handleNav = (e: any) => {
     if (e.target.className.includes('prev')) {
       setPosition(decPos());
@@ -85,6 +78,7 @@ export const PhotoDetails = ({
     }
   };
 
+  // Take current position on grid and return the position before (decrement)
   const decPos = () => {
     if (position > 0) {
       return position - 1;
@@ -93,6 +87,7 @@ export const PhotoDetails = ({
     }
   };
 
+  // Take current position on grid and return the position after (increment)
   const incPos = () => {
     if (position < photos.length - 1) {
       return position + 1;
@@ -140,7 +135,7 @@ export const PhotoDetails = ({
                   </div>
                 )}
                 <ul className="details-info">
-                  {displayDetails.map((detail: PhotoDetail, index) => {
+                  {displayDetails.map((detail: PhotoDetailObj, index) => {
                     if (detail.name !== 'EXIF' && detail.value) {
                       return (
                         <li

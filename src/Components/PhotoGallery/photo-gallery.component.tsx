@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Unsplash, { toJson } from 'unsplash-js';
-import { UnsplashPhoto } from './photo-gallery.interfaces';
+import { UnsplashPhoto } from './photo-gallery';
 import { Capitalize } from '../Utils/Capitalize';
 
 import './photo-gallery.component.scss';
