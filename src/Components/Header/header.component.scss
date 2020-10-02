@@ -1,9 +1,14 @@
+@import '../../styles/variables';
+
 header {
-  height: 80px;
-  background: black;
+  height: 120px;
+  background: $offblack;
   color: white;
+  padding-left: 30px;
+  padding-top: 10px;
 
   h2 {
+    font-size: 2rem;
     margin-top: 0;
   }
 }

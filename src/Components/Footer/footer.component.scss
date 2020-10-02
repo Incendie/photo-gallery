@@ -1,7 +1,12 @@
+@import '../../styles/variables';
+
 footer {
-  height: 80px;
-  background: black;
+  height: 120px;
+  background: $offblack;
   color: white;
+  font-size: 1.5rem;
+  padding-left: 30px;
+  padding-top: 10px;
 
   a {
     color: orange;
