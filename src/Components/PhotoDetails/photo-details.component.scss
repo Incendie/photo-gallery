@@ -41,6 +41,10 @@
     position: absolute;
     right: -100px;
     cursor: pointer;
+
+    &:hover {
+      color: orange;
+    }
   }
 }
 
@@ -61,7 +65,7 @@
       color: orange;
 
       img {
-        filter: brightness(100%);
+        filter: brightness(80%);
       }
     }
 

@@ -42,7 +42,6 @@ export const PhotoGallery = () => {
     const element = e.target as HTMLElement;
     const imgElement = element.nextSibling as HTMLImageElement;
 
-    console.log(imgElement);
     if (imgElement.nodeName === 'IMG') {
       setShowEnlarged(true);
       setEnlargePhoto(imgElement.id);

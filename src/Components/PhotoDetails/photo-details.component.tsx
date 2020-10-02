@@ -39,6 +39,7 @@ export const PhotoDetails = ({
       .getPhoto(photos[position].id)
       .then(toJson)
       .then((json: any) => {
+        console.log(json);
         const details = [
           { name: 'Caption', value: Capitalize(json.alt_description) },
           {
@@ -90,7 +91,7 @@ export const PhotoDetails = ({
   };
 
   const incPos = () => {
-    if (position < photos.length) {
+    if (position < photos.length - 1) {
       return position + 1;
     } else {
       return 0;
