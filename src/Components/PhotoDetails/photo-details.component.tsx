@@ -8,7 +8,6 @@ import {
   PhotoDetailsProps,
   PhotoDetailObj
 } from './photo-details';
-import { UnsplashPhoto } from '../PhotoGallery/photo-gallery';
 import { Loading } from '../Utils/Loading/loading.component';
 import './photo-details.component.scss';
 
