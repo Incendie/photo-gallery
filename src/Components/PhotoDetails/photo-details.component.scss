@@ -1,3 +1,5 @@
+@import '../../styles/variables';
+
 .details {
   display: flex;
   flex-direction: column;
@@ -47,7 +49,7 @@
     &-Caption {
       font-size: 1.6rem;
       align-self: center;
-      color: lighten(orange, 10%);
+      color: lighten($orange, 10%);
       margin: 15px;
 
       span:nth-child(2) {
@@ -64,7 +66,7 @@
     cursor: pointer;
 
     &:hover {
-      color: orange;
+      color: $orange;
     }
 
     @media only screen and (max-device-width: 1440px) {
@@ -135,7 +137,7 @@
     }
 
     &:hover {
-      color: orange;
+      color: $orange;
 
       img {
         filter: brightness(80%);

@@ -9,10 +9,10 @@ footer {
 
 a {
   text-decoration: none;
-  color: orange;
+  color: $orange;
 
   &:hover {
-    color: lighten(orange, 20%);
+    color: lighten($orange, 20%);
   }
 }
 
@@ -31,12 +31,12 @@ li {
 
 button {
   border: none;
-  background: orange;
+  background: $orange;
 }
 
 .App {
   display: grid;
-  grid-template-rows: 80px auto 80px;
+  grid-template-rows: 120px auto 120px;
   height: 100vh;
   background: $offwhite;
 }

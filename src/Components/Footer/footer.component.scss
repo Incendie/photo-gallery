@@ -7,9 +7,10 @@ footer {
   font-size: 1.5rem;
   padding-left: 30px;
   padding-top: 10px;
+  box-shadow: -3px -3px 10px grey;
 
   a {
-    color: orange;
+    color: $orange;
 
     &:hover {
       font-weight: bold;
