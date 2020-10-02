@@ -5,6 +5,7 @@ import { Capitalize } from '../Utils/Capitalize';
 
 import './photo-gallery.component.scss';
 import { PhotoDetails } from '../PhotoDetails/photo-details.component';
+import { Loading } from '../Utils/Loading/loading.component';
 
 export const PhotoGallery = () => {
   const unsplash = new Unsplash({
@@ -15,7 +16,7 @@ export const PhotoGallery = () => {
   const [photos, setPhotos] = useState<UnsplashPhoto[]>([]);
   const [position, setPosition] = useState<number>(0);
   const [showEnlarged, setShowEnlarged] = useState<boolean>(false);
-  const [enlargePhoto, setEnlargePhoto] = useState<string>('');
+  const [showLoading, setShowLoading] = useState<boolean>(false);
 
   // Fetch a new batch of photos every time the page increases
   useEffect(() => {
@@ -30,10 +31,15 @@ export const PhotoGallery = () => {
             const displayPhotos = [...photos];
             displayPhotos.push(...json);
             setPhotos(displayPhotos);
+            setShowLoading(false);
           }
         })
-        .catch((err) => console.error('Error fetching photos:', err));
+        .catch((err) => {
+          console.error('Error fetching photos:', err);
+          setShowLoading(false);
+        });
     };
+
     fetchPhotos();
   }, [page]);
 
@@ -44,7 +50,7 @@ export const PhotoGallery = () => {
 
     if (imgElement.nodeName === 'IMG') {
       setShowEnlarged(true);
-      setEnlargePhoto(imgElement.id);
+
       if (imgElement.dataset && imgElement.dataset.position) {
         const position = parseInt(imgElement.dataset.position, 10);
         setPosition(position);
@@ -54,6 +60,7 @@ export const PhotoGallery = () => {
 
   // Handler to kick start searching for next page of photos for Infinite Scroll
   const handleLoad = () => {
+    setShowLoading(true);
     setPage(page + 1);
   };
 
@@ -78,13 +85,13 @@ export const PhotoGallery = () => {
       </ul>
       {showEnlarged && (
         <PhotoDetails
-          photoId={enlargePhoto}
           setShowEnlarged={setShowEnlarged}
           photos={photos}
           position={position}
           setPosition={setPosition}
         />
       )}
+      {showLoading && <Loading />}
       <button onClick={handleLoad}>Load More</button>
     </main>
   );

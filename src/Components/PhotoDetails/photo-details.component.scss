@@ -1,5 +1,15 @@
 @import '../../styles/variables';
 
+.loader,
+.loader:before,
+.loader:after {
+  background: $offwhite;
+  top: 25%;
+}
+.loader {
+  color: $offwhite;
+}
+
 .details {
   display: flex;
   flex-direction: column;

@@ -37,7 +37,7 @@ button {
 .App {
   display: grid;
   grid-template-rows: 120px auto 120px;
-  height: 100vh;
+  min-height: 100vh;
   background: $offwhite;
 }
 

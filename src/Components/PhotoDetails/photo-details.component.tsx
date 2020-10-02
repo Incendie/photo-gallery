@@ -5,10 +5,10 @@ import { format } from 'date-fns';
 
 import { UnsplashPhotoDetails } from './photo-details.interfaces';
 import { UnsplashPhoto } from '../PhotoGallery/photo-gallery.interfaces';
+import { Loading } from '../Utils/Loading/loading.component';
 import './photo-details.component.scss';
 
 interface PhotoDetailsProps {
-  photoId: string;
   setShowEnlarged: any;
   photos: UnsplashPhoto[];
   position: number;
@@ -21,7 +21,6 @@ interface PhotoDetail {
 }
 
 export const PhotoDetails = ({
-  photoId,
   setShowEnlarged,
   photos,
   position,
@@ -32,6 +31,7 @@ export const PhotoDetails = ({
   });
   const [photoDetails, setPhotoDetails] = useState<UnsplashPhotoDetails>();
   const [displayDetails, setDisplayDetails] = useState<PhotoDetail[]>([]);
+  const [showLoading, setShowLoading] = useState<boolean>(true);
 
   // Fetch and parse the photo's details
   useEffect(() => {
@@ -64,8 +64,12 @@ export const PhotoDetails = ({
         ];
         setPhotoDetails(json);
         setDisplayDetails(details);
+        setShowLoading(false);
       })
-      .catch((err) => console.error('Error fetching photo:', err));
+      .catch((err) => {
+        console.error('Error fetching photo:', err);
+        setShowLoading(false);
+      });
   }, [position]);
 
   // Handler for the 'X' button to close the modal
@@ -99,7 +103,7 @@ export const PhotoDetails = ({
 
   return (
     <div>
-      {photoDetails && (
+      {photos && (
         <div className="modal">
           <div className="modal-prev" onClick={handleNav}>
             <div className="modal-prev-img">
@@ -123,42 +127,53 @@ export const PhotoDetails = ({
             <div className="details-close" onClick={handleClick}>
               X
             </div>
-            <div className="details-photo ">
-              <img
-                src={photoDetails.urls.full}
-                alt={photoDetails.alt_description || 'Unsplash photo'}
-              />
-            </div>
-            <ul className="details-info">
-              {displayDetails.map((detail: PhotoDetail, index) => {
-                if (detail.name !== 'EXIF' && detail.value) {
-                  return (
-                    <li key={index} className={`details-info-${detail.name}`}>
-                      <span>
-                        {detail.name !== 'Caption' && `${detail.name}`}
-                      </span>
-                      <span>{` - `}</span>
-                      <span>
-                        {detail.name === 'Portfolio Link' ||
-                        detail.name === 'Twitter' ? (
-                          <a
-                            href={
-                              detail.name === 'Twitter'
-                                ? `https://twitter.com/${detail.value}`
-                                : detail.value
-                            }
-                          >
-                            {detail.value}
-                          </a>
-                        ) : (
-                          detail.value
-                        )}
-                      </span>
-                    </li>
-                  );
-                }
-              })}
-            </ul>
+            {showLoading ? (
+              <Loading />
+            ) : (
+              <>
+                {photoDetails && (
+                  <div className="details-photo ">
+                    <img
+                      src={photoDetails.urls.full}
+                      alt={photoDetails.alt_description || 'Unsplash photo'}
+                    />
+                  </div>
+                )}
+                <ul className="details-info">
+                  {displayDetails.map((detail: PhotoDetail, index) => {
+                    if (detail.name !== 'EXIF' && detail.value) {
+                      return (
+                        <li
+                          key={index}
+                          className={`details-info-${detail.name}`}
+                        >
+                          <span>
+                            {detail.name !== 'Caption' && `${detail.name}`}
+                          </span>
+                          <span>{` - `}</span>
+                          <span>
+                            {detail.name === 'Portfolio Link' ||
+                            detail.name === 'Twitter' ? (
+                              <a
+                                href={
+                                  detail.name === 'Twitter'
+                                    ? `https://twitter.com/${detail.value}`
+                                    : detail.value
+                                }
+                              >
+                                {detail.value}
+                              </a>
+                            ) : (
+                              detail.value
+                            )}
+                          </span>
+                        </li>
+                      );
+                    }
+                  })}
+                </ul>
+              </>
+            )}
           </div>
         </div>
       )}
